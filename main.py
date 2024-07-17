@@ -24,6 +24,9 @@ def main():
             print('You did not enter a valid command.')
             user_choice = menu()
 
+        user_choice = input("Return to Menu? Y/N:")
+        if user_choice.upper() == 'N':
+            user_choice = 6
 
 def menu():
     # main menu-- number system?  1) view cart, 2)add item, etc...
@@ -44,7 +47,6 @@ def add_item_to_cart(_inventory):
             # add item to cart object here
         else:
             print(f"We're sorry we only have {item_to_add['stock']} Available at the moment")
-
 
 if __name__ == "__main__":
     main()
