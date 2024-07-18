@@ -1,52 +1,109 @@
 from inventory import Inventory
+from cart import Cart
 
 
-def main():
-    user_choice = 0
-    store_inventory = Inventory()
-    print(f'Welcome to shopping website')
-    while user_choice != 6:
-        user_choice = menu()
-        if user_choice == 1:
-            store_inventory.get_inventory()
-        elif user_choice == 2:
+class Main(Cart):
+
+    def __init__(self):
+        super().__init__()
+
+    def menu(self):
+        user_choice = None
+        print(f'Welcome to Movie Website')
+
+        while True:
+            if user_choice == None:
+                print(f'\nPlease select from the following menu then press enter')
+                print(
+                    f' 1) Show Inventory\n 2) View Cart\n 3) Add item to Cart\n 4) Edit Cart \n 5) Checkout\n 6) Logout')
+                user_choice = int(input('Please enter your selection: '))
+            if user_choice == 1:
+                self.store_inventory.get_inventory()
+                self.inventory_menu()
+            elif user_choice == 2:
+                # view cart function here
+                self.get_cart()
+                self.view_cart_menu()
+            elif user_choice == 3:
+                self.add_cart_menu()
+            elif user_choice == 4:
+                # edit cart function here
+                self.edit_cart_menu()
+            elif user_choice == 5:
+                # checkout function here
+                self.checkout()
+            elif user_choice == 6:
+                self.shut_down()
+            else:
+                print('You did not enter a valid command.')
+
+            # resets user_choice for next iteration
+            user_choice = None
+
+    def shut_down(self):
+        print('Thank you for shopping with us today!')
+        exit()
+
+    def inventory_menu(self):
+        print(f'\nPlease select from the following menu then press enter')
+        print(f'1) View Cart 2) Add item to Cart 3) Edit Cart 4) Checkout 5) Logout')
+        _user_choice = int(input('Please enter your selection: '))
+        if _user_choice == 1:
             # view cart function here
-            pass
-        elif user_choice == 3:
-            add_item_to_cart(store_inventory)
-        elif user_choice == 4:
-            # edit cart function here
-            pass
-        elif user_choice == 5:
-            # checkout function here
-            pass
+            self.get_cart()
+        elif _user_choice == 2:
+            self.add_cart_menu()
+        elif _user_choice == 3:
+            self.edit_cart_menu()
+        elif _user_choice == 4:
+            self.checkout()
+        elif _user_choice == 5:
+            self.shut_down()
         else:
             print('You did not enter a valid command.')
-            user_choice = menu()
 
-        user_choice = input("Return to Menu? Y/N:")
-        if user_choice.upper() == 'N':
-            user_choice = 6
-
-def menu():
-    # main menu-- number system?  1) view cart, 2)add item, etc...
-    print(f'Please select from the following menu then press enter')
-    print(f' 1) Show Inventory\n 2) View Cart\n 3) Add item to Cart\n 4) Edit Cart \n 5) Checkout\n 6) Close site')
-    user_choice = int(input('Please enter your selection: '))
-    return user_choice
-
-
-def add_item_to_cart(_inventory):
-    _inventory.get_inventory()
-    item = input('Please type in the item you would like to add to your cart: ')
-    item_to_add = _inventory.get_item(item)
-    if item_to_add:
-        count_of_item = int(input('How many would you like to add to your cart? '))
-        if count_of_item < item_to_add['stock']:
-            print(f"{item}: Cost: ${float(item_to_add['cost']):,.2f}")
-            # add item to cart object here
+    def view_cart_menu(self):
+        print(f'\nPlease select from the following menu then press enter')
+        print(f'1) View Inventory 2) Add item to Cart 3) Edit Cart 4) Checkout 5) Logout')
+        _user_choice = int(input('Please enter your selection: '))
+        if _user_choice == 1:
+            self.store_inventory.get_inventory()
+        elif _user_choice == 2:
+            self.add_cart_menu()
+        elif _user_choice == 3:
+            self.edit_cart_menu()
+        elif _user_choice == 4:
+            self.checkout()
+        elif _user_choice == 5:
+            self.shut_down()
         else:
-            print(f"We're sorry we only have {item_to_add['stock']} Available at the moment")
+            print('You did not enter a valid command.')
 
-if __name__ == "__main__":
-    main()
+    def edit_cart_menu(self):
+            self.get_cart()
+            print(f'\nPlease select from the following menu then press enter')
+            print(f' 1) Add item to Cart 2) Remove Item from Cart 3) Lower the Quantity of an Item in your cart 4)Checkout 5)Logout')
+            _user_choice = int(input('Please enter your selection: '))
+            if _user_choice == 1:
+                self.add_cart_menu()
+            elif _user_choice == 2: # asks user for which item
+                item = input('Which item would you like to remove? ')
+                self.remove_cart(item)
+            elif _user_choice == 3: #
+                item = input('Which item would you like to edit? ')
+                self.edit_cart(item)
+            elif _user_choice == 4:
+                self.checkout()
+            elif _user_choice == 5: # if user selects to Logout
+                self.shut_down()
+            else:
+                print('You did not enter a valid command.')
+
+    def add_cart_menu(self):
+        self.store_inventory.get_inventory()
+        self.add_cart()
+
+
+
+m = Main()
+m.menu()
