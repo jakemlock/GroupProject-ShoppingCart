@@ -1,4 +1,6 @@
 from inventory import Inventory
+
+
 class Cart:
 
     def __init__(self):
@@ -31,7 +33,8 @@ class Cart:
                         self.shopping_cart[item] += quantity
                         print("Added " + str(quantity) + " of " + item + " to your cart.")
                     else:
-                        print(f"Sorry, we only have {item_info['stock']} of {item} in stock. Your cart currently has {self.shopping_cart[item]} of {item}")
+                        print(
+                            f"Sorry, we only have {item_info['stock']} of {item} in stock. Your cart currently has {self.shopping_cart[item]} of {item}")
                 else:
                     self.shopping_cart[item] = quantity
                     print("Added " + str(quantity) + " of " + item + " to your cart.")
@@ -48,7 +51,6 @@ class Cart:
         except:
             print(f"{item} not in your cart! ")
 
-
     def edit_cart(self, item):
         if item in self.shopping_cart:
             try:
@@ -63,6 +65,7 @@ class Cart:
                     self.edit_cart(item)
             except:
                 print('Please enter a valid number')
+                self.edit_cart(item)
         else:
             print(item + " is not in your cart.")
         pass
@@ -80,18 +83,19 @@ class Cart:
                         self.store_inventory.checkout({item: quantity})
                     else:
                         cart_quantity_adjustment = item_info['stock']
-                        print('Your cart has been adjusted to reflect the amount in stock.')
+                        print(f'Your cart has been adjusted to reflect the amount of {item} stock.')
                         total += item_info['cost'] * cart_quantity_adjustment
                         self.store_inventory.checkout({item: cart_quantity_adjustment})
-            print(f"Your total is $ {total:,.2f}. Thank you for shopping with us!")
+            print(f"Your total is ${total:,.2f}. Thank you for shopping with us!")
             self.shopping_cart.clear()
         pass
 
-    def inventory_stock_validation(self,_item, _quantity):
-            valid = False
-            if _quantity <= self.store_inventory.inventory[_item]['stock']:
-                valid = True
-                return valid
-            else:
-                print(f"We're sorry the store only has {self.store_inventory.inventory[_item]['stock']} in stock at the moment")
-                return valid
+    def inventory_stock_validation(self, _item, _quantity):
+        valid = False
+        if _quantity <= self.store_inventory.inventory[_item]['stock']:
+            valid = True
+            return valid
+        else:
+            print(
+                f"We're sorry the store only has {self.store_inventory.inventory[_item]['stock']} in stock at the moment")
+            return valid
