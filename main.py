@@ -90,6 +90,7 @@ class Main(Cart):
                 item = input('Which item would you like to remove? ')
                 self.remove_cart(item)
             elif _user_choice == 3: #
+                self.get_cart()
                 item = input('Which item would you like to edit? ')
                 self.edit_cart(item)
             elif _user_choice == 4:
