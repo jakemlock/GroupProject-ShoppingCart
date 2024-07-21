@@ -10,7 +10,11 @@ class Cart:
 
     # accessor methods
     def get_cart(self):
-        # get cart contents
+        """
+        an accessor method used to return the user's current shopping cart object containing the items they have chosen
+        or returns a message if their cart is currently empty
+        :return: if the cart is not empty, the function returns the user's current shopping cart object
+        """
         if not self.shopping_cart:
             print("Your cart is empty.")
         else:
@@ -22,7 +26,11 @@ class Cart:
 
     # mutator methods
     def add_cart(self):
-        # add item to cart
+        """
+        a mutator method used to add an item from the shop inventory and the amount the user selects to the user's
+        cart object
+        :return:
+        """
         item = input('Which item would you like to add? ')
         item_info = self.store_inventory.get_item(item)
         if item_info:
@@ -44,7 +52,12 @@ class Cart:
         pass
 
     def remove_cart(self, item):
-        # remove item from cart
+        """
+        a mutator method used to remove an object from the user's cart using its item name and displays a message if
+        the item was removed from the cart object
+        :param item:
+        :return:
+        """
         try:
             self.shopping_cart.pop(item)
             print(f"{item} removed! ")
@@ -52,6 +65,12 @@ class Cart:
             print(f"{item} not in your cart! ")
 
     def edit_cart(self, item):
+        """
+        a mutator method used to decrement the amount of an item's amount the user wishes to order by asking the user
+        how many of the item they would like to remove from their cart
+        :param item:
+        :return:
+        """
         if item in self.shopping_cart:
             try:
                 quantity = int(input('How many would you like to remove from your cart? '))
@@ -71,7 +90,13 @@ class Cart:
         pass
 
     def checkout(self):
-        # list total, remove stock from store's inventory and reset cart
+        """
+        a mutator method used for when the user is ready to order the items in their cart
+        this method calculates the total price of the user's cart and calls the inventory object's checkout method
+        to decrement the store's inventory stock of each item in the user's cart by the amount of the item they selected
+
+        :return:
+        """
         ask = input('Are you sure you want to check out? y/n ')
         if str.upper(ask) == 'Y':
             total = 0
@@ -91,11 +116,18 @@ class Cart:
         pass
 
     def inventory_stock_validation(self, _item, _quantity):
-        valid = False
+        """
+        inventory stock validation back up validation for while the user is checking out to ensure the inventory
+        contains the amount the user selected
+        :param _item: an item passed in from the user's shopping cart
+        :param _quantity: the item's quantity from the user's shopping cart
+        :return: returns either True or False depending on if the inventory currently holds the amount of stock the user
+        has selected
+        """
         if _quantity <= self.store_inventory.inventory[_item]['stock']:
             valid = True
-            return valid
+            return True
         else:
             print(
                 f"We're sorry the store only has {self.store_inventory.inventory[_item]['stock']} in stock at the moment")
-            return valid
+            return False

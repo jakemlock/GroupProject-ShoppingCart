@@ -8,6 +8,12 @@ class Main(Cart):
         super().__init__()
 
     def menu(self):
+        """
+        This function contains the main loop for the program that runs until the user decides to exit the program.
+        The main loop contains the UI menu for the shopping website, enabling the user to select from
+        showing the inventory, view their cart, add an item to their car, edit their cart, check out, and logout (exit)
+        :return:
+        """
         user_choice = None
         print(f'Welcome to Movie Website')
 
@@ -41,10 +47,19 @@ class Main(Cart):
             user_choice = None
 
     def shut_down(self):
+        """
+        function called to exit the program, also displays a message thanking the user for shopping with us today
+        :return:
+        """
         print('Thank you for shopping with us today!')
         exit()
 
     def inventory_menu(self):
+        """
+        sub inventory menu function. after showing the shops inventory displays another menu with all the options of the
+        main menu excluding showing the inventory
+        :return: nothing
+        """
         print(f'\nPlease select from the following menu then press enter')
         print(f'1) View Cart 2) Add item to Cart 3) Edit Cart 4) Checkout 5) Logout')
         _user_choice = int(input('Please enter your selection: '))
@@ -63,6 +78,11 @@ class Main(Cart):
             print('You did not enter a valid command.')
 
     def view_cart_menu(self):
+        """
+        submenu function for viewing the cart. after showing the user's current cart displays another menu with all
+        the options of the main menu excluding showing the view cart option
+        :return: nothing
+        """
         print(f'\nPlease select from the following menu then press enter')
         print(f'1) View Inventory 2) Add item to Cart 3) Edit Cart 4) Checkout 5) Logout')
         _user_choice = int(input('Please enter your selection: '))
@@ -80,6 +100,10 @@ class Main(Cart):
             print('You did not enter a valid command.')
 
     def edit_cart_menu(self):
+        """
+         Submenu function for editing the users cart. Give the user options for editing the contents of their cart
+         :return: nothing
+         """
         self.get_cart()
         print(f'\nPlease select from the following menu then press enter')
         print(
@@ -102,6 +126,11 @@ class Main(Cart):
             print('You did not enter a valid command.')
 
     def add_cart_menu(self):
+        """
+        submenu function for adding an item to the cart. Shows the current inventory for the user's convenience
+        then calls the add_cart function.
+        :return: nothing
+        """
         self.store_inventory.get_inventory()
         self.add_cart()
 
